@@ -1,0 +1,48 @@
+{% extends '../auth/auth.html' %}
+{% block main %}
+<div class="container py-1">
+  <div class="row py-3">
+    <div class="col-12 col-md-4 offset-md-4">
+      <h3 class="text-center text-white fw-bold">Registrate</h3>
+      <div class="card border border-0 shadow-lg rounded">
+        <div class="card-body">
+          <form action="/register" method="post" class="mt-1 p-3 text-dark">
+            <div class="text-center pb-3">
+              <img src="https://i.pinimg.com/originals/ff/a0/9a/ffa09aec412db3f54deadf1b3781de2a.png" class="img-fluid"
+                alt="Login" height="150" width="150">
+            </div>
+            <div class="mb-3">
+              <label for="inputName" class="form-label fw-bold">Nombre</label>
+              <input type="text" class="form-control" name="name" placeholder="Pablo Becerra" required>
+            </div>
+            <div class="mb-3">
+              <label for="inputEmail" class="form-label fw-bold">Correo electrónico</label>
+              <input type="email" class="form-control" name="email" placeholder="example@gmail.com" required>
+              {% for error in messages.errors_email %}
+                <small class="fw-bold text-danger">{{error}}</small>
+              {% endfor %}
+            </div>
+            <div class="mb-3">
+              <label for="inputPassword" class="form-label fw-bold">Contraseña</label>
+              <input type="password" class="form-control" name="password" required>
+              {% for error in messages.errors_password %}
+                <small class="fw-bold text-danger">{{error}}</small>
+              {% endfor %}
+            </div>
+            <div class="mb-3">
+              <label for="inputConfirmPassword" class="form-label fw-bold">Repetir Contraseña</label>
+              <input type="password" class="form-control" name="password_repeat" required>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary w-100 fw-bold">Registrarme
+              <i class="bi bi-person-plus-fill"></i>
+            </button>
+            <p class="fst-italic fw-bold text-center text-muted mt-2">¿Ya tienes cuenta?</p>
+            <a href="/login" class="btn btn-light fw-bold w-100">Iniciar sesión <i
+                class="bi bi-box-arrow-in-right"></i></a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

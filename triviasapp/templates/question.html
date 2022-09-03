@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% from 'macros.html' import navbar %}
+
+{% block main %}
+{{ navbar('/new_question', user) }}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-10 mx-auto py-2">
+            {% for message in messages.success %}
+            <div class="alert alert-success d-flex align-items-center" role="alert">
+                <div>
+                    {{ message }}
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="col-12 d-flex justify-content-center">
+            <h2 class="fw-bold text-uppercase py-3">Nueva pregunta</h2>
+        </div>
+        <div class="col-8 mx-auto pb-4">
+            <div class="card border border-0 shadow">
+                <div class="card-body">
+                    <form class="d-block" action="/new_question" method="post">
+                        <label for="inputQuestion" class="fw-bold my-2">Pregunta</label>
+                        <div class="form-floating">
+                            <textarea name="question" class="form-control" placeholder="Leave a comment here"
+                                id="inputQuestion" style="height: 100px"></textarea>
+                            <label for="inputQuestion" class="fst-italic">Ingrese la pregunta</label>
+                        </div>
+                        <div class="mb-3 mt-2">
+                            <label for="inputCorrectAnswer" class="form-label fw-bold">Respuesta correcta</label>
+                            <input type="text" class="form-control" id="inputCorrectAnswer" name="correctAnswer" required>
+                        </div>
+                        <div class="mb-3 mt-2">
+                            <label for="inputIncorrectAnswer1" class="form-label fw-bold">Respuesta incorrecta
+                                #1</label>
+                            <input type="text" class="form-control" id="inputIncorrectAnswer1" name="incorrectAnswer1" required>
+                        </div>
+                        <div class="mb-3 mt-2">
+                            <label for="inputIncorrectAnswer2" class="form-label fw-bold">Respuesta incorrecta
+                                #2</label>
+                            <input type="text" class="form-control" id="inputIncorrectAnswer2" name="incorrectAnswer2" required>
+                        </div>
+                        <div class="mb-3 mt-2">
+                            <label for="inputIncorrectAnswer3" class="form-label fw-bold">Respuesta incorrecta
+                                #3</label>
+                            <input type="text" class="form-control" id="inputIncorrectAnswer3" name="incorrectAnswer3">
+                            <small class="fw-bold text-muted">Este respuesta es opcional, puede quedar vacía</small>
+                        </div>
+                        <div class="mb-3 mt-2">
+                            <label for="inputIncorrectAnswer4" class="form-label fw-bold">Respuesta incorrecta
+                                #4</label>
+                            <input type="text" class="form-control" id="inputIncorrectAnswer4" name="incorrectAnswer4">
+                            <small class="fw-bold text-muted">Este respuesta es opcional, puede quedar vacía</small>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <a href="/" class="btn btn-light fw-bold me-2 shadow">Cancelar</a>
+                            <button class="btn btn-primary fw-bold shadow">Agregar Pregunta</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
