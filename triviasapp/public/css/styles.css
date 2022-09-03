@@ -163,6 +163,10 @@ nav {
   }
 }
 
+.badge{
+  font-size: 1.2rem;
+}
+
 .bg-card {
   background: rgb(124, 119, 210);
   background: linear-gradient(90deg, rgba(124, 119, 210, 1) 0%, rgba(116, 116, 210, 1) 41%, rgba(25, 178, 241, 1) 100%, rgba(0, 212, 255, 1) 100%);

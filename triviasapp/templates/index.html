@@ -40,9 +40,9 @@
                   <td class="fw-bold">{{game.name}}</td>
                   <td class="fw-bold">{{game.score}}</td>
                   {% if game.percentage > 34 %}
-                  <td class="fw-bold text-success">{{game.percentage}}%</td>
+                  <td class="fw-bold"><span class="badge text-bg-dark text-success py-2 w-50">{{game.percentage}}%</span></td>
                   {% else %}
-                  <td class="fw-bold text-danger">{{game.percentage}}%</td>
+                  <td class="fw-bold"><span class="badge text-bg-dark text-danger py-2 w-50">{{game.percentage}}%</span></td>
                   {% endif %}
                 </tr>
                 {% endfor %}
