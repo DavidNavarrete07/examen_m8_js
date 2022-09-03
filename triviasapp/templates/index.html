@@ -2,53 +2,61 @@
 {% from 'macros.html' import navbar %}
 
 {% block main %}
-  {{ navbar('/', user) }}
+{{ navbar('/', user) }}
+<section id="home">
   <div class="container-fluid">
-    <h2 class="text-center mt-2">Bienvenid@, <b>{{ user.name }}</b></h2>
     <div class="row">
       <div class="col-12 d-flex justify-content-center py-4">
-        <div class="card w-25 text-center shadow border border-0">
+        <div class="card w-50 text-center shadow border border-0 py-4">
+          <h2 class="card-title text-center">Bienvenid@, <b class="text-uppercase">{{ user.name }} <i class="bi bi-emoji-smile"></i></b></h2>
           <div class="d-flex justify-content-center py-2">
-            <img src="/images/web/quiz.png" alt="Imagen de quiz">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-patch-question-fill text-primary" viewBox="0 0 16 16">
+              <path d="M5.933.87a2.89 2.89 0 0 1 4.134 0l.622.638.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636zM7.002 11a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm1.602-2.027c.04-.534.198-.815.846-1.26.674-.475 1.05-1.09 1.05-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745.336 0 .504-.24.554-.627z"/>
+            </svg>
           </div>
           <div class="card-body">
-            <a href="/lets_play" class="btn btn-primary mt-1 shadow">Jugar!</a>
-            <small class="card-text d-block fw-bold mt-1">Click para iniciar la trivia</small>
+            <a href="/lets_play" type="button" class="btn btn-lg btn-primary fw-bold w-50"> Jugar <i class="bi bi-play-fill"></i></a>
+            <small class="card-text d-block fw-bold mt-1 text-muted">Click para iniciar la trivia</small>
           </div>
         </div>
       </div>
-      <div class="col-10 mx-auto d-flex justify-content-end">
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Dato a buscar..." aria-label="Search">
-          <button class="btn btn-outline-primary border border-1 shadow" type="submit">Buscar</button>
-        </form>
-      </div>
       <div class="col-10 mx-auto py-4">
-        <div class="table-responsive">
-          <table class="table">
-            <thead class="table-dark">
-              <tr>
-                <th scope="col">Usuario</th>
-                <th scope="col">Puntaje</th>
-                <th scope="col">Porcentaje</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for game in games%}
+        <div class="panel">
+          <div class="panel-heading">
+                <h4 class="title fw-bold text-center">Juegos</h4>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="fw-bold">Usuario</th>
+                  <th class="fw-bold">Puntaje</th>
+                  <th class="fw-bold">Porcentaje</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for game in games %}
                 <tr>
                   <td class="fw-bold">{{game.name}}</td>
                   <td class="fw-bold">{{game.score}}</td>
                   {% if game.percentage > 34 %}
-                    <td class="fw-bold text-success">{{game.percentage}}%</td>
+                  <td class="fw-bold text-success">{{game.percentage}}%</td>
                   {% else %}
-                    <td class="fw-bold text-danger">{{game.percentage}}%</td>
+                  <td class="fw-bold text-danger">{{game.percentage}}%</td>
                   {% endif %}
                 </tr>
-              {% endfor%}
-            </tbody>
-          </table>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-footer">
+            <div class="row">
+              <div class="col col-sm-6 col-xs-6">Resultado de juegos de los usuarios</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</section>
 {% endblock %}
