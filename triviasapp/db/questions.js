@@ -27,11 +27,11 @@ async function create_question(question) {
     return rows[0];
 }
 
-async function get_questions() {
+async function get_questions(quantity) {
     let questions = [];
-    let answers
+    let answers;
     const client = await pool.connect();
-    const { rows } = await client.query({ text: `SELECT * FROM questions ORDER BY random() LIMIT 3` });
+    const { rows } = await client.query(`SELECT * FROM questions ORDER BY random() LIMIT $1`, [quantity]);
     for (const question of rows) {
         if (question.incorrect_answer3 == '' && question.incorrect_answer4 == '') {
             answers = [

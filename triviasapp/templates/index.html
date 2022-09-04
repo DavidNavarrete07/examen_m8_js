@@ -15,7 +15,14 @@
             </svg>
           </div>
           <div class="card-body">
-            <a href="/lets_play" type="button" class="btn btn-lg btn-primary fw-bold w-50"> Jugar <i class="bi bi-play-fill"></i></a>
+            <form action="/quantity_questions" method="post">
+              <div class="mb-3">
+                <label for="inputQuantityQuestions" class="form-label fw-bold">Preguntas a responder</label>
+                <input type="number" value="3" placeholder="Cantidad de preguntas a responder" min="3" max="8" class="form-control w-50 mx-auto" id="inputQuantityQuestions" name="quantityQuestions">
+                <small class="card-text d-block fw-bold mt-1 text-muted">El mínimo de preguntas a responder es 3 y el máximo es 8</small>
+              </div>
+              <button type="submit" class="btn btn-lg btn-primary fw-bold w-50"> Jugar <i class="bi bi-play-fill"></i></button>
+            </form>
             <small class="card-text d-block fw-bold mt-1 text-muted">Click para iniciar la trivia</small>
           </div>
         </div>

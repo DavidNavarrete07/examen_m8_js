@@ -4,6 +4,8 @@ const { get_games, create_game } = require('../db/games.js');
 
 const router = Router()
 
+let quantityQuestions = 0;
+
 // Vamos a crear un middleware para ver si el usuario está logueado o no
 function protected_route(req, res, next) {
   if (!req.session.user) {
@@ -55,22 +57,25 @@ router.post('/new_question', protected_route_admin, async (req, res) => {
 })
 
 router.get('/lets_play', protected_route, async (req, res) => {
-  const questions = await get_questions();
+  let questions = await get_questions(quantityQuestions);
   res.render('play.html', { questions });
+})
+
+router.post('/quantity_questions', protected_route, (req, res) => {
+  quantityQuestions = parseInt(req.body.quantityQuestions.trim());
+  res.redirect('/lets_play');
 })
 
 router.post('/lets_play', protected_route, async (req, res) => {
   let score = 0;
   let percentage = 0;
-  const answerQuestion1 = req.body.question1.trim();
-  const answerQuestion2 = req.body.question2.trim();
-  const answerQuestion3 = req.body.question3.trim();
   const userId = parseInt(req.body.userId.trim());
-  (await compare_answer(answerQuestion1) ? score++ : score = score);
-  (await compare_answer(answerQuestion2) ? score++ : score = score);
-  (await compare_answer(answerQuestion3) ? score++ : score = score);
-  percentage = (score / 3 * 100).toFixed(2);
-  score = score + '/3';
+  for(let i=1; i <= quantityQuestions; i++){
+    let answer = req.body[`question${i}`].trim();
+    (await compare_answer(answer) ? score++ : score = score);
+  }
+  percentage = (score / quantityQuestions * 100).toFixed(2);
+  (quantityQuestions < 3) ? score = score + '/3' : score = score + '/' + quantityQuestions;
   try {
     let game = {
       score: score,

@@ -15,15 +15,19 @@ async function create_table() {
       is_admin boolean not null
     )
   `)
-
-  // Creo un usuario admin
-  // const encrypted_pass = await bcrypt.hash('admin1234', 10)
-  // const { rows } = await client.query(`INSERT INTO users(name, email, password, is_admin) VALUES($1, $2, $3, $4) RETURNING *`, 
-  // ['Administrador', 'administrador@gmail.com', encrypted_pass, true]);
-
   // 3. Devuelvo el cliente al pool
   client.release()
 }
+async function insertAdmin() {
+  const client = await pool.connect();
+  //Creo un usuario admin
+  const encrypted_pass = await bcrypt.hash('admin1234', 10)
+  const { rows } = await client.query(`INSERT INTO users(name, email, password, is_admin) VALUES($1, $2, $3, $4) RETURNING *`,
+    ['Administrador', 'administrador@gmail.com', encrypted_pass, true]);
+  client.release();
+}
+
+//insertAdmin();
 create_table()
 
 
