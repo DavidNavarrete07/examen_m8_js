@@ -40,20 +40,28 @@ router.get('/new_question', protected_route_admin, (req, res) => {
 })
 
 router.post('/new_question', protected_route_admin, async (req, res) => {
-  const question = {
-    question: req.body.question.trim(),
-    correctAnswer: req.body.correctAnswer.trim(),
-    incorrectAnswer1: req.body.incorrectAnswer1.trim(),
-    incorrectAnswer2: req.body.incorrectAnswer2.trim(),
-    incorrectAnswer3: req.body.incorrectAnswer3.trim(),
-    incorrectAnswer4: req.body.incorrectAnswer4.trim()
-  }
-  try {
-    await create_question(question);
-    req.flash('success', `¡Pregunta agregada satisfactoriamente!`)
-    res.redirect('/new_question');
-  } catch (error) {
-    console.log('Error al crear la pregunta: ' + error);
+  if (!/([^\s]{3,})/g.test(req.body.question.trim())|| 
+  !/([^\s]{3,})/g.test(req.body.correctAnswer.trim()) || 
+  !/([^\s]{3,})/g.test(req.body.incorrectAnswer1.trim())|| 
+  !/([^\s]{3,})/g.test(req.body.incorrectAnswer2.trim())) {
+    req.flash('errors', `Está ingresando una cadena de texto vacía...`)
+    return res.redirect('/new_question');
+  } else {
+    const question = {
+      question: req.body.question.trim(),
+      correctAnswer: req.body.correctAnswer.trim(),
+      incorrectAnswer1: req.body.incorrectAnswer1.trim(),
+      incorrectAnswer2: req.body.incorrectAnswer2.trim(),
+      incorrectAnswer3: req.body.incorrectAnswer3.trim(),
+      incorrectAnswer4: req.body.incorrectAnswer4.trim()
+    }
+    try {
+      await create_question(question);
+      req.flash('success', `¡Pregunta agregada satisfactoriamente!`)
+      res.redirect('/new_question');
+    } catch (error) {
+      console.log('Error al crear la pregunta: ' + error);
+    }
   }
 })
 
@@ -86,13 +94,13 @@ router.post('/lets_play', protected_route, async (req, res) => {
     await create_game(game);
     let message;
     if (percentage < 34) {
-      message = '¡Oh, lo sentimos!, suerte para la próxima\n Tu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage+'%';
+      message = '¡Oh, lo sentimos!, suerte para la próxima\n Tu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage + '%';
     }
-    if(percentage > 34){
-      message = '¡Muy buen intento! \n Tu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage+'%';
+    if (percentage > 34) {
+      message = '¡Muy buen intento! \n Tu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage + '%';
     }
     if (percentage == 100) {
-      message = '¡Felicitaciones!, \nTu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage +'%';
+      message = '¡Felicitaciones!, \nTu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage + '%';
     }
     req.flash('info', message);
     res.redirect('/');

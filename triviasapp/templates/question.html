@@ -7,10 +7,16 @@
     <div class="row">
         <div class="col-10 mx-auto py-2">
             {% for message in messages.success %}
-            <div class="alert alert-success d-flex align-items-center" role="alert">
-                <div>
+            <div class="alert alert-success fw-bold d-flex align-items-center" role="alert">
                     {{ message }}
-                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+        </div>
+        <div class="col-10 mx-auto py-2">
+            {% for message in messages.errors %}
+            <div class="alert alert-danger fw-bold d-flex align-items-center" role="alert">
+                    {{ message }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         {% endfor %}
@@ -25,7 +31,7 @@
                         <label for="inputQuestion" class="fw-bold my-2">Pregunta</label>
                         <div class="form-floating">
                             <textarea name="question" class="form-control" placeholder="Leave a comment here"
-                                id="inputQuestion" style="height: 100px"></textarea>
+                                id="inputQuestion" style="height: 100px" required></textarea>
                             <label for="inputQuestion" class="fst-italic">Ingrese la pregunta</label>
                         </div>
                         <div class="mb-3 mt-2">
