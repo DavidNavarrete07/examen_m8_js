@@ -18,16 +18,6 @@ async function create_table() {
   // 3. Devuelvo el cliente al pool
   client.release()
 }
-async function insertAdmin() {
-  const client = await pool.connect();
-  //Creo un usuario admin
-  const encrypted_pass = await bcrypt.hash('admin1234', 10)
-  const { rows } = await client.query(`INSERT INTO users(name, email, password, is_admin) VALUES($1, $2, $3, $4) RETURNING *`,
-    ['Administrador', 'administrador@gmail.com', encrypted_pass, true]);
-  client.release();
-}
-
-//insertAdmin();
 create_table()
 
 
@@ -52,16 +42,25 @@ async function create_user(name, email, password) {
   // 1. Solicito un 'cliente' al pool de conexiones
   const client = await pool.connect()
 
-  // 2. Ejecuto la consulta SQL (me traigo un array de arrays)
-  const { rows } = await client.query(
-    `insert into users (name, email, password, is_admin) values ($1, $2, $3, $4) returning *`,
-    [name, email, password, false]
-  )
+  const resp = await client.query(`select * from users`)
+  if (resp.rowCount === 0) {
+    const encrypted_pass = await bcrypt.hash('admin1234', 10)
+    const { rows } = await client.query(`INSERT INTO users(name, email, password, is_admin) VALUES($1, $2, $3, $4) RETURNING *`,
+      [name, email, password, true]);
+    client.release()
+    return rows[0];
+  } else {
+    // 2. Ejecuto la consulta SQL (me traigo un array de arrays)
+    const { rows } = await client.query(
+      `insert into users (name, email, password, is_admin) values ($1, $2, $3, $4) returning *`,
+      [name, email, password, false]
+    )
+    client.release()
+    return rows[0];
+  }
 
   // 3. Devuelvo el cliente al pool
-  client.release()
 
-  return rows[0]
 }
 
 module.exports = { get_user, create_user }

@@ -1,20 +1,5 @@
 const pool = require('../db/pool.js');
 
-async function create_table() {
-    const client = await pool.connect();
-
-    await client.query(`CREATE TABLE IF NOT EXISTS games(
-        id SERIAL PRIMARY KEY, 
-        user_id INT NOT NULL, 
-        score VARCHAR(5) NOT NULL, 
-        percentage FLOAT NOT NULL, 
-        date_game TIMESTAMP NOT NULL DEFAULT NOW(),
-        FOREIGN KEY (user_id) REFERENCES users(id)
-    );`);
-}
-
-create_table();
-
 async function create_game(game) {
     const client = await pool.connect();
 

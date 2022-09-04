@@ -1,20 +1,5 @@
 const pool = require('../db/pool.js');
 
-async function create_table() {
-    const client = await pool.connect();
-
-    await client.query(`CREATE TABLE IF NOT EXISTS questions(
-        id SERIAL PRIMARY KEY, 
-        question TEXT NOT NULL, 
-        correct_answer TEXT NOT NULL, 
-        incorrect_answer1 TEXT NOT NULL, 
-        incorrect_answer2 TEXT NOT NULL, 
-        incorrect_answer3 TEXT, 
-        incorrect_answer4 TEXT
-    )`);
-}
-create_table();
-
 async function create_question(question) {
     const client = await pool.connect();
 
