@@ -18,8 +18,8 @@ function protected_route(req, res, next) {
   next()
 }
 
-function protected_route_admin(req, res, next){
-  if(!req.session.user.is_admin){
+function protected_route_admin(req, res, next) {
+  if (!req.session.user.is_admin) {
     req.flash('errors', 'Usted no es administrador');
     return res.redirect('/');
   }
@@ -28,9 +28,10 @@ function protected_route_admin(req, res, next){
 }
 
 
-router.get('/', protected_route, async(req, res) => {
+router.get('/', protected_route, async (req, res) => {
   const games = await get_games();
-  res.render('index.html', {games});
+  const messages = req.flash();
+  res.render('index.html', { games, messages });
 })
 
 router.get('/new_question', protected_route_admin, (req, res) => {
@@ -70,7 +71,7 @@ router.post('/lets_play', protected_route, async (req, res) => {
   let score = 0;
   let percentage = 0;
   const userId = parseInt(req.body.userId.trim());
-  for(let i=1; i <= quantityQuestions; i++){
+  for (let i = 1; i <= quantityQuestions; i++) {
     let answer = req.body[`question${i}`].trim();
     (await compare_answer(answer) ? score++ : score = score);
   }
@@ -83,6 +84,17 @@ router.post('/lets_play', protected_route, async (req, res) => {
       userId, userId
     }
     await create_game(game);
+    let message;
+    if (percentage < 34) {
+      message = '¡Oh, lo sentimos!, suerte para la próxima\n Tu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage+'%';
+    }
+    if(percentage > 34){
+      message = '¡Muy buen intento! \n Tu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage+'%';
+    }
+    if (percentage == 100) {
+      message = '¡Felicitaciones!, \nTu puntaje fue de: ' + score + ' y en porcentaje fue de: ' + percentage +'%';
+    }
+    req.flash('info', message);
     res.redirect('/');
   } catch (error) {
     console.log('Error al guardar el juego: ' + error);

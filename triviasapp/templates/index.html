@@ -6,22 +6,36 @@
 <section id="home">
   <div class="container-fluid">
     <div class="row">
+      <div class="col-8 mx-auto py-2">
+        {% for message in messages.info %}
+        <div class="alert alert-secondary d-flex align-items-center fw-bold shadow" role="alert">
+            {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+      </div>
       <div class="col-12 d-flex justify-content-center py-4">
         <div class="card w-50 text-center shadow border border-0 py-4">
-          <h2 class="card-title text-center">Bienvenid@, <b class="text-uppercase">{{ user.name }} <i class="bi bi-emoji-smile"></i></b></h2>
+          <h2 class="card-title text-center">Bienvenid@, <b class="text-uppercase">{{ user.name }} <i
+                class="bi bi-emoji-smile"></i></b></h2>
           <div class="d-flex justify-content-center py-2">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor" class="bi bi-patch-question-fill text-primary" viewBox="0 0 16 16">
-              <path d="M5.933.87a2.89 2.89 0 0 1 4.134 0l.622.638.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636zM7.002 11a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm1.602-2.027c.04-.534.198-.815.846-1.26.674-.475 1.05-1.09 1.05-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745.336 0 .504-.24.554-.627z"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="currentColor"
+              class="bi bi-patch-question-fill text-primary" viewBox="0 0 16 16">
+              <path
+                d="M5.933.87a2.89 2.89 0 0 1 4.134 0l.622.638.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636zM7.002 11a1 1 0 1 0 2 0 1 1 0 0 0-2 0zm1.602-2.027c.04-.534.198-.815.846-1.26.674-.475 1.05-1.09 1.05-1.986 0-1.325-.92-2.227-2.262-2.227-1.02 0-1.792.492-2.1 1.29A1.71 1.71 0 0 0 6 5.48c0 .393.203.64.545.64.272 0 .455-.147.564-.51.158-.592.525-.915 1.074-.915.61 0 1.03.446 1.03 1.084 0 .563-.208.885-.822 1.325-.619.433-.926.914-.926 1.64v.111c0 .428.208.745.585.745.336 0 .504-.24.554-.627z" />
             </svg>
           </div>
           <div class="card-body">
             <form action="/quantity_questions" method="post">
               <div class="mb-3">
                 <label for="inputQuantityQuestions" class="form-label fw-bold">Preguntas a responder</label>
-                <input type="number" value="3" placeholder="Cantidad de preguntas a responder" min="3" max="8" class="form-control w-50 mx-auto" id="inputQuantityQuestions" name="quantityQuestions">
-                <small class="card-text d-block fw-bold mt-1 text-muted">El mínimo de preguntas a responder es 3 y el máximo es 8</small>
+                <input type="number" value="3" placeholder="Cantidad de preguntas a responder" min="3" max="8"
+                  class="form-control w-50 mx-auto" id="inputQuantityQuestions" name="quantityQuestions">
+                <small class="card-text d-block fw-bold mt-1 text-muted">El mínimo de preguntas a responder es 3 y el
+                  máximo es 8</small>
               </div>
-              <button type="submit" class="btn btn-lg btn-primary fw-bold w-50"> Jugar <i class="bi bi-play-fill"></i></button>
+              <button type="submit" class="btn btn-lg btn-primary fw-bold w-50"> Jugar <i
+                  class="bi bi-play-fill"></i></button>
             </form>
             <small class="card-text d-block fw-bold mt-1 text-muted">Click para iniciar la trivia</small>
           </div>
@@ -30,7 +44,7 @@
       <div class="col-10 mx-auto py-4">
         <div class="panel">
           <div class="panel-heading">
-                <h4 class="title fw-bold text-center">Juegos</h4>
+            <h4 class="title fw-bold text-center">Juegos</h4>
           </div>
           <div class="panel-body table-responsive">
             <table class="table">
@@ -47,9 +61,11 @@
                   <td class="fw-bold">{{game.name}}</td>
                   <td class="fw-bold">{{game.score}}</td>
                   {% if game.percentage > 34 %}
-                  <td class="fw-bold"><span class="badge text-bg-dark text-success py-2 w-50">{{game.percentage}}%</span></td>
+                  <td class="fw-bold"><span
+                      class="badge text-bg-dark text-success py-2 w-50">{{game.percentage}}%</span></td>
                   {% else %}
-                  <td class="fw-bold"><span class="badge text-bg-dark text-danger py-2 w-50">{{game.percentage}}%</span></td>
+                  <td class="fw-bold"><span class="badge text-bg-dark text-danger py-2 w-50">{{game.percentage}}%</span>
+                  </td>
                   {% endif %}
                 </tr>
                 {% endfor %}
