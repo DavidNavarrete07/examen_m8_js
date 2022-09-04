@@ -14,6 +14,9 @@
             <div class="mb-3">
               <label for="inputName" class="form-label fw-bold">Nombre</label>
               <input type="text" class="form-control" name="name" placeholder="Pablo Becerra" required>
+              {% for error in messages.errors%}
+                <small class="fw-bold text-danger">{{error}}</small>
+              {% endfor %}
             </div>
             <div class="mb-3">
               <label for="inputEmail" class="form-label fw-bold">Correo electrónico</label>

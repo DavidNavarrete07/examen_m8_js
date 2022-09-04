@@ -15,6 +15,10 @@ router.post('/login', async (req, res) => {
   // 1. me traigo los datos del formulario
   const email = req.body.email.trim()
   const password = req.body.password.trim()
+  if (!/([^\s]{3,})/g.test(email) || !/([^\s]{3,})/g.test(password)){
+    req.flash('errors', 'Está ingresando una cadena de texto vacía o espacios en blanco');
+    return res.redirect('/login');
+  }
 
   // 2. intento buscar al usuario en base a su email 
   let user_buscado = await get_user(email)
@@ -56,6 +60,11 @@ router.post('/register', async (req, res) => {
   const email = req.body.email.trim()
   const password = req.body.password.trim()
   const password_repeat = req.body.password_repeat.trim()
+
+  if (!/([^\s]{3,})/g.test(name) || !/([^\s]{3,})/g.test(email) || !/([^\s]{3,})/g.test(password) || !/([^\s]{3,})/g.test(password_repeat)){
+    req.flash('errors', 'Está ingresando una cadena de texto vacía o espacios en blanco');
+    return res.redirect('/register');
+  }
 
   // 2. validamos que contraseñas coincidan
   if (password != password_repeat) {
