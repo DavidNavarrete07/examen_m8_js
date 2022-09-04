@@ -12,8 +12,9 @@
 4. Instalar las dependencias
    `npm install`
 
-5. Crear tabla de la base de datos
+5. Crear tablas de la base de datos
    `psql -U postgres -f node_modules/connect-pg-simple/table.sql nombre_base_datos`
+    Crear demas tablas con el archivo trivia_app.sql
 
 6. Ejecutar
    `nodemon server.js`
